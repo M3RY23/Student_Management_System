@@ -1,0 +1,504 @@
+
+# Öğrenci Yönetim Sistemi (Student Management System)
+
+## Proje Amacı
+
+Bir okulun öğrenci, öğretmen ve yönetici işlemlerini yönetebilen konsol tabanlı bir uygulama geliştirilmesi.
+
+Sistemde üç farklı kullanıcı rolü bulunacaktır:
+
+* Admin
+* Öğretmen
+* Öğrenci
+
+Her rolün farklı yetkileri olacaktır.
+
+---
+
+# Teknolojiler
+
+* Java 17+
+* OOP (Object Oriented Programming)
+* Collections Framework
+* Exception Handling
+* File Operations
+* Encapsulation
+* Inheritance
+* Polymorphism
+* Abstraction
+* Interface
+* Enum
+* Stream API (Bonus)
+
+---
+
+# Kullanıcı Rolleri
+
+## 1. Admin
+
+Sistemin tam yetkili kullanıcısıdır.
+
+### Yetkileri
+
+* Öğrenci ekleme
+* Öğrenci silme
+* Öğrenci güncelleme
+* Öğretmen ekleme
+* Öğretmen silme
+* Öğretmen güncelleme
+* Ders oluşturma
+* Ders silme
+* Kullanıcıları listeleme
+* Sistemdeki tüm notları görüntüleme
+
+---
+
+## 2. Öğretmen
+
+Kendisine atanmış dersleri yönetebilir.
+
+### Yetkileri
+
+* Kendi derslerini görüntüleme
+* Öğrencilere not verme
+* Öğrenci notlarını güncelleme
+* Öğrenci listesini görüntüleme
+* Ders ortalamasını hesaplama
+
+---
+
+## 3. Öğrenci
+
+Kendi bilgilerini görüntüleyebilir.
+
+### Yetkileri
+
+* Profil görüntüleme
+* Aldığı dersleri görüntüleme
+* Notlarını görüntüleme
+* Genel ortalama (GPA) görüntüleme
+
+---
+
+# UML Yapısı
+
+## Base Class
+
+```java
+public abstract class User {
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String password;
+
+    // getters setters
+}
+```
+
+---
+
+## Student
+
+```java
+public class Student extends User {
+
+    private String studentNumber;
+    private List<Course> courses;
+    private Map<Course, Integer> grades;
+
+}
+```
+
+---
+
+## Teacher
+
+```java
+public class Teacher extends User {
+
+    private String department;
+    private List<Course> courses;
+
+}
+```
+
+---
+
+## Admin
+
+```java
+public class Admin extends User {
+
+}
+```
+
+---
+
+## Course
+
+```java
+public class Course {
+
+    private Long id;
+    private String courseName;
+    private Teacher teacher;
+
+}
+```
+
+---
+
+# Enum Kullanımı
+
+## Role
+
+```java
+public enum Role {
+    ADMIN,
+    TEACHER,
+    STUDENT
+}
+```
+
+---
+
+# Login Sistemi
+
+Kullanıcı sisteme giriş yapmalıdır.
+
+### Örnek
+
+```text
+Email:
+admin@school.com
+
+Password:
+12345
+```
+
+Başarılı giriş:
+
+```text
+Welcome Admin
+```
+
+Başarısız giriş:
+
+```text
+Invalid credentials
+```
+
+---
+
+# Menü Yapısı
+
+## Ana Menü
+
+```text
+1- Login
+2- Exit
+```
+
+---
+
+# Admin Menüsü
+
+```text
+1- Add Student
+2- Update Student
+3- Delete Student
+4- List Students
+
+5- Add Teacher
+6- Update Teacher
+7- Delete Teacher
+8- List Teachers
+
+9- Add Course
+10- Delete Course
+11- List Courses
+
+12- View All Grades
+
+13- Logout
+```
+
+---
+
+# Teacher Menüsü
+
+```text
+1- View Courses
+2- View Students
+3- Assign Grade
+4- Update Grade
+5- Course Average
+6- Logout
+```
+
+---
+
+# Student Menüsü
+
+```text
+1- View Profile
+2- View Courses
+3- View Grades
+4- View GPA
+5- Logout
+```
+
+---
+
+# Service Katmanı
+
+## StudentService
+
+```java
+public interface StudentService {
+
+    void addStudent(Student student);
+
+    void deleteStudent(Long id);
+
+    void updateStudent(Student student);
+
+    Student findById(Long id);
+
+    List<Student> findAll();
+
+}
+```
+
+---
+
+## TeacherService
+
+```java
+public interface TeacherService {
+
+    void addTeacher(Teacher teacher);
+
+    void deleteTeacher(Long id);
+
+    List<Teacher> findAll();
+
+}
+```
+
+---
+
+## CourseService
+
+```java
+public interface CourseService {
+
+    void addCourse(Course course);
+
+    void deleteCourse(Long id);
+
+    List<Course> findAll();
+
+}
+```
+
+---
+
+# Exception Yapısı
+
+## UserNotFoundException
+
+```java
+public class UserNotFoundException extends RuntimeException {
+
+    public UserNotFoundException(String message) {
+        super(message);
+    }
+
+}
+```
+
+---
+
+## CourseNotFoundException
+
+```java
+public class CourseNotFoundException extends RuntimeException {
+
+    public CourseNotFoundException(String message) {
+        super(message);
+    }
+
+}
+```
+
+---
+
+# GPA Hesaplama
+
+Not Aralıkları:
+
+| Not    | Katsayı |
+| ------ | ------- |
+| 90-100 | 4.0     |
+| 80-89  | 3.0     |
+| 70-79  | 2.0     |
+| 60-69  | 1.0     |
+| 0-59   | 0.0     |
+
+Örnek:
+
+```java
+public double calculateGPA() {
+
+    double total = 0;
+
+    for(Integer grade : grades.values()) {
+
+        if(grade >= 90)
+            total += 4.0;
+        else if(grade >= 80)
+            total += 3.0;
+        else if(grade >= 70)
+            total += 2.0;
+        else if(grade >= 60)
+            total += 1.0;
+    }
+
+    return total / grades.size();
+}
+```
+
+---
+
+# Dosya Kaydetme (File I/O)
+
+Program kapanırken:
+
+```text
+students.txt
+teachers.txt
+courses.txt
+```
+
+oluşturulmalıdır.
+
+Program açılırken bu dosyalardan veriler okunmalıdır.
+
+Örnek kayıt:
+
+```text
+1,Adam,Barry,adam@gmail.com,ST1001
+```
+
+---
+
+# Bonus Özellikler
+
+## 1. Stream API
+
+En başarılı öğrenciyi bulma
+
+```java
+students.stream()
+        .max(Comparator.comparing(Student::calculateGPA))
+        .orElseThrow();
+```
+
+---
+
+## 2. Sıralama
+
+Öğrencileri GPA'ya göre sırala.
+
+```java
+students.sort(
+        Comparator.comparing(Student::calculateGPA)
+                  .reversed()
+);
+```
+
+---
+
+## 3. Arama
+
+Öğrenci numarasına göre arama.
+
+```text
+Enter Student Number:
+ST1001
+```
+
+---
+
+## 4. Raporlama
+
+Admin aşağıdaki raporları görebilir:
+
+```text
+Total Students: 250
+Total Teachers: 18
+Total Courses: 24
+
+Average GPA: 3.12
+
+Top Student:
+Adam Barry
+```
+
+---
+
+# Proje Klasör Yapısı
+
+```text
+src
+│
+├── entity
+│   ├── User.java
+│   ├── Student.java
+│   ├── Teacher.java
+│   ├── Admin.java
+│   └── Course.java
+│
+├── enums
+│   └── Role.java
+│
+├── exception
+│   ├── UserNotFoundException.java
+│   └── CourseNotFoundException.java
+│
+├── repository
+│   ├── StudentRepository.java
+│   ├── TeacherRepository.java
+│   └── CourseRepository.java
+│
+├── service
+│   ├── StudentService.java
+│   ├── TeacherService.java
+│   └── CourseService.java
+│
+├── service/impl
+│   ├── StudentServiceImpl.java
+│   ├── TeacherServiceImpl.java
+│   └── CourseServiceImpl.java
+│
+├── util
+│   ├── FileUtil.java
+│   └── GPAUtil.java
+│
+└── Main.java
+```
+
+# Teslim Gereksinimleri
+
+1. En az 10 öğrenci oluşturulmalı.
+2. En az 3 öğretmen oluşturulmalı.
+3. En az 5 ders oluşturulmalı.
+4. Login sistemi çalışmalı.
+5. File I/O kullanılmalı.
+6. OOP prensipleri uygulanmalı.
+7. Exception handling kullanılmalı.
+8. GitHub'a yüklenmeli.
+9. README dosyası hazırlanmalı.
+10. Ekran görüntüleri eklenmeli.

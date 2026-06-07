@@ -1,4 +1,0 @@
-123456 , Adam , Barry , Adam@gmail.com , 1234 , Java
-234567 , Kuzzat , Altay , Kuzzat@gmail.com , 1234 , Computer Science
-345678 , Albert , Einstein , Albert@gmail.com , 1234 , Math And Science
-456789 , Micheal , Jackson , Micheal@gmail.com , 1234 , Music

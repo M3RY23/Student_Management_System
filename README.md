@@ -66,19 +66,19 @@ If the symmetry, robust input validation, and clean structure show it — good. 
 ## Screenshots
 
 ### Login
-![Login](screenshots/login.png)
+![Login](login.png)
 
 ### Admin Menu
-![Admin Menu](screenshots/admin%20menu.png)
+![Admin Menu](admin%20menu.png)
 
 ### Add Student
-![Add Student](screenshots/add%20student.png)
+![Add Student](add%20student.png)
 
 ### Teacher Menu
-![Teacher Menu](screenshots/teacher%20menu.png)
+![Teacher Menu](teacher%20menu.png)
 
 ### Student Menu
-![Student Menu](screenshots/student%20menu.png)
+![Student Menu](student%20menu.png)
 
 ### Reports
-![Reports](screenshots/report.png)
+![Reports](report.png)

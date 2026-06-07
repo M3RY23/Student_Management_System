@@ -62,3 +62,23 @@ Every single line of code was crafted purposefully, and every runtime exception 
 If the symmetry, robust input validation, and clean structure show it — good. That was exactly the point.
 
 ---
+
+## Screenshots
+
+### Login
+![Login](screenshots/login.png)
+
+### Admin Menu
+![Admin Menu](screenshots/admin%20menu.png)
+
+### Add Student
+![Add Student](screenshots/add%20student.png)
+
+### Teacher Menu
+![Teacher Menu](screenshots/teacher%20menu.png)
+
+### Student Menu
+![Student Menu](screenshots/student%20menu.png)
+
+### Reports
+![Reports](screenshots/report.png)
